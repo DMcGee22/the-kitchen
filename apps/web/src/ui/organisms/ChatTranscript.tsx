@@ -9,8 +9,6 @@ import { TypingDots } from '../atoms/TypingDots';
 import { StatusTicker } from '../atoms/StatusTicker';
 import { safeMarkdownUrlTransform } from '../../lib/markdown-url-transform';
 
-
-
 export const ChatTranscript = memo(function ChatTranscript({
   messages,
   assistantDraft,
@@ -57,8 +55,8 @@ export const ChatTranscript = memo(function ChatTranscript({
   return (
     <ScrollArea.Root flex="1" minH={0} variant="hover">
       <ScrollArea.Viewport ref={viewportRef} data-testid="chat-transcript-scroll">
-        <Box maxW="740px" mx="auto" w="100%">
-        <VStack align="stretch" gap="6" px={{ base: '3', md: '5' }} pt="4" pb="3">
+        <Box maxW="740px" mx="auto" w="100%" px={{ base: '4', md: '6' }}>
+          <VStack align="stretch" gap="6" pt="4" pb="3">
           {loading ? (
             <TranscriptBubble messageRole="system">
               <Text fontWeight="700">Loading session…</Text>
@@ -89,7 +87,7 @@ export const ChatTranscript = memo(function ChatTranscript({
               ) : null}
             </>
           )}
-        </VStack>
+          </VStack>
         </Box>
       </ScrollArea.Viewport>
       <ScrollArea.Scrollbar />
@@ -337,24 +335,32 @@ function TranscriptBubble({
     });
   }
 
-  /* ── Copy button — rendered but opacity controlled by .msg-outer:hover ── */
+  /* ── Copy button — floats top-right on hover, opacity via .msg-outer:hover ── */
   const CopyBtn = copyContent ? (
-    <Box className="msg-actions" display="inline-flex" mt="1">
+    <Box
+      className="msg-actions"
+      position="absolute"
+      top="5px"
+      right="5px"
+      zIndex={2}
+    >
       <Button
         type="button"
-        variant="ghost"
         size="xs"
         minW={0}
         px="1.5"
         h="5"
         rounded="4px"
+        bg="var(--surface-elevated)"
+        border="1px solid var(--border-subtle)"
         color="var(--text-muted)"
         fontSize="10px"
-        fontWeight="400"
+        fontWeight="500"
+        boxShadow="var(--shadow-xs)"
         _hover={{ bg: 'var(--surface-2)', color: 'var(--text-primary)' }}
         onClick={handleCopy}
       >
-        {copied ? '✓ Copied' : 'Copy'}
+        {copied ? '✓' : 'Copy'}
       </Button>
     </Box>
   ) : null;
@@ -363,20 +369,21 @@ function TranscriptBubble({
   if (isUser) {
     const inner = (
       <Box
+        position="relative"
         maxW="min(580px, 86%)"
         bg={selected ? 'var(--surface-selected)' : 'var(--surface-2)'}
         rounded="16px"
-        roundedBottomRight="4px"
-        px="3"
+        borderBottomRightRadius="4px"
+        pl="3"
+        pr={copyContent ? '10' : '3'}
         pt="2.5"
-        pb="2"
+        pb="2.5"
         wordBreak="break-word"
-        overflow="hidden"
         transition="background-color 150ms ease-in-out"
         style={selected ? { outline: '1.5px solid var(--accent)', outlineOffset: '2px' } : undefined}
       >
-        {children}
         {CopyBtn}
+        {children}
       </Box>
     );
 
@@ -407,9 +414,9 @@ function TranscriptBubble({
         <Box flexShrink={0} mt="2px">
           <HermesAvatar size="sm" />
         </Box>
-        <Box flex="1" minW={0} overflow="hidden" wordBreak="break-word">
-          {children}
+        <Box flex="1" minW={0} position="relative" overflowX="hidden" wordBreak="break-word" pr={copyContent ? '8' : '0'}>
           {CopyBtn}
+          {children}
         </Box>
       </HStack>
     );

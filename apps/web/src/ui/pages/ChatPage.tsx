@@ -222,7 +222,7 @@ export function ChatPage({
     <Flex direction="column" h="100%" minH={0}>
       {/* Session subtitle + actions — minimal, inline, no box */}
       {!attachedRecipe ? (
-        <HStack px={{ base: '4', lg: '6' }} pt="2" pb="1" justify="space-between" align="center" flexShrink={0} gap="3">
+        <HStack px={{ base: '4', md: '6' }} pt="2" pb="1" justify="space-between" align="center" flexShrink={0} gap="3" maxW="740px" mx="auto" w="100%">
           <Text fontSize="xs" color="var(--text-muted)" minW={0} lineClamp={1} opacity={0.7}>
             {activeSession?.summary ?? 'Choose a recent session or start a new one.'}
           </Text>
@@ -257,17 +257,17 @@ export function ChatPage({
 
       {/* Inline errors — compact, no full-width banners */}
       {error ? (
-        <Box px={{ base: '4', lg: '6' }} flexShrink={0}>
+        <Box px={{ base: '4', md: '6' }} flexShrink={0} maxW="740px" mx="auto" w="100%">
           <ErrorBanner title="Session load failed" detail={error} />
         </Box>
       ) : null}
       {chatError ? (
-        <Box px={{ base: '4', lg: '6' }} flexShrink={0}>
+        <Box px={{ base: '4', md: '6' }} flexShrink={0} maxW="740px" mx="auto" w="100%">
           <ErrorBanner title="Hermes request failed" detail={chatError} />
         </Box>
       ) : null}
       {actionError ? (
-        <Box px={{ base: '4', lg: '6' }} flexShrink={0}>
+        <Box px={{ base: '4', md: '6' }} flexShrink={0} maxW="740px" mx="auto" w="100%">
           <ErrorBanner title="Session update failed" detail={actionError} />
         </Box>
       ) : null}
@@ -514,13 +514,13 @@ export function ChatPage({
               />
             </Box>
 
-            {/* Composer — anchored at bottom, centered, open canvas */}
+            {/* Composer — anchored at bottom, same column as transcript */}
             <Box
               flexShrink={0}
-              px={{ base: '3', md: '4', lg: '6' }}
+              px={{ base: '4', md: '6' }}
               pt="3"
               pb={{ base: '4', lg: '5' }}
-              maxW={runtimePanelOpen ? undefined : '800px'}
+              maxW={runtimePanelOpen ? undefined : '740px'}
               mx={runtimePanelOpen ? undefined : 'auto'}
               w="100%"
             >

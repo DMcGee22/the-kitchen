@@ -517,13 +517,14 @@ tr:focus-within .table-row-actions {
 .command-palette-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(4px);
   z-index: 1000;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding-top: 15vh;
+  padding: 0 16px;
+  padding-bottom: 10vh;
 }
 
 .command-palette {
